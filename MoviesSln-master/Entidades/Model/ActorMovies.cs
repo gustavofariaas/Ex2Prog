@@ -7,6 +7,7 @@ namespace Entidades.Model
 {
     public class ActorMovies
     {
+        [Key]
         public int ActorMovieId { get; set; }
         public string Character { get; set; }
         public int MovieId { get; set; }

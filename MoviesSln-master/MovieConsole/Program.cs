@@ -16,60 +16,58 @@ namespace MovieConsole
             MovieContext db = new MovieContext();
 
             #region # LINQ - consultas
-            //Console.WriteLine();
-            //Console.WriteLine("Todos os gêneros da base de dados:");
-            //foreach (Genre genero in db.Genres)
-            //{
-            //    Console.WriteLine("{0} \t {1}", genero.GenreId, genero.Name);
-            //}
+            Console.WriteLine();
+            Console.WriteLine("Todos os gêneros da base de dados:");
+            foreach (Genre genero in db.Genres)
+            {
+                Console.WriteLine("{0} \t {1}", genero.GenreId, genero.Name);
+            }
 
-            ////listar todos os filmes de acao
-            //Console.WriteLine();
-            //Console.WriteLine("Todos os filmes de acao:");
+            //listar todos os filmes de acao
+            Console.WriteLine();
+            Console.WriteLine("Todos os filmes de acao:");
 
-            //List<Movie> filmes = new List<Movie>();
-            //foreach (Movie f in db.Movies)
-            //{
-            //    if (f.GenreId == 1)
-            //        filmes.Add(f);
-            //}
+            List<Movie> filmes = new List<Movie>();
+            foreach (Movie f in db.Movies)
+            {
+                if (f.GenreId == 1)
+                    filmes.Add(f);
+            }
 
-            //var filmes = from f in db.Movies
-            //             where f.GenreId == 1
-            //             select f;
+            
 
 
-            //Console.WriteLine("Todos os filmes do genero 'Action':");
-            //var filmesAction = db.Movies.Where(m => m.GenreId == 1);
-            //foreach (Movie filme in filmesAction)
-            //{
-            //    Console.WriteLine("\t{0}", filme.Title);
-            //}
+            Console.WriteLine("Todos os filmes do genero 'Action':");
+            var filmesAction = db.Movies.Where(m => m.GenreId == 1);
+            foreach (Movie filme in filmesAction)
+            {
+                Console.WriteLine("\t{0}", filme.Title);
+            }
 
-            //Console.WriteLine();
-            //Console.WriteLine("Todos os filmes do genero 'Action':");
-            //var filmesAction2 = from m in db.Movies
-            //                    where m.GenreId == 1
-            //                    select m;
-            //foreach (Movie filme in filmesAction2)
-            //{
-            //    Console.WriteLine("\t{0}", filme.Title);
-            //}
+            Console.WriteLine();
+            Console.WriteLine("Todos os filmes do genero 'Action':");
+            var filmesAction2 = from m in db.Movies
+                                where m.GenreId == 1
+                                select m;
+            foreach (Movie filme in filmesAction2)
+            {
+                Console.WriteLine("\t{0}", filme.Title);
+            }
 
-            //Console.WriteLine();
-            //Console.WriteLine("Todos os filmes de cada genero:");
-            //var generosFilmes = from g in db.Genres.Include(gen => gen.Movies)
-            //                    select g;
-            ////var generosFilmes2 = db.Genres.Include(gen => gen.Movies).ToList();
+            Console.WriteLine();
+            Console.WriteLine("Todos os filmes de cada genero:");
+            var generosFilmes = from g in db.Genres.Include(gen => gen.Movies)
+                                select g;
+            //var generosFilmes2 = db.Genres.Include(gen => gen.Movies).ToList();
 
-            //foreach (var gf in generosFilmes)
-            //{
-            //    Console.WriteLine("Filmes do genero: " + gf.Name);
-            //    foreach (var f in gf.Movies)
-            //    {
-            //        Console.WriteLine("\t{0}", f.Title);
-            //    }
-            //}
+            foreach (var gf in generosFilmes)
+            {
+                Console.WriteLine("Filmes do genero: " + gf.Name);
+                foreach (var f in gf.Movies)
+                {
+                    Console.WriteLine("\t{0}", f.Title);
+                }
+            }
 
 
 
@@ -83,7 +81,7 @@ namespace MovieConsole
                          Titulo = f.Title
                      };
 
-           // var q2 = db.Movies.Where(f => f.Director == "Quentin Tarantino").Select(f => f.Title);
+            // var q2 = db.Movies.Where(f => f.Director == "Quentin Tarantino").Select(f => f.Title);
 
             foreach (var item in q1)
             {
@@ -91,17 +89,17 @@ namespace MovieConsole
             }
 
 
-            //Console.WriteLine();
-            //Console.WriteLine("Nomes e data dos filmes do diretor Quentin Tarantino:");
-            //var q3 = from f in db.Movies
-            //         where f.Director == "Quentin Tarantino"
-            //         select new { f.Title, f.ReleaseDate };
-            //foreach (var f in q3)
-            //{
-            //    Console.WriteLine("{0}\t {1}", f.ReleaseDate.ToShortDateString(), f.Title);
-            //}
-
             Console.WriteLine();
+            Console.WriteLine("Nomes e data dos filmes do diretor Quentin Tarantino:");
+            var q3 = from f in db.Movies
+                     where f.Director == "Quentin Tarantino"
+                     select new { f.Title, f.ReleaseDate };
+            foreach (var f in q3)
+            {
+                Console.WriteLine("{0}\t {1}", f.ReleaseDate.ToShortDateString(), f.Title);
+            }
+
+            // Console.WriteLine();
             Console.WriteLine("Todos os gêneros ordenados pelo nome:");
             //var q4 = db.Genres.OrderByDescending(g => g.Name);
             //foreach (var genero in q4)
@@ -180,8 +178,8 @@ namespace MovieConsole
                      where f.Character == "James Bond"
                      select f.ActorId;
 
-            var top = ag.OrderByDescending(x => x).First();
-            Console.WriteLine(from f in db.Actors where f.ActorId == top select f.Name);
+            //var top = ag.OrderByDescending(x => x).First();
+            //Console.WriteLine(from f in db.Actors where f.ActorId == top select f.Name);
 
 
        Console.WriteLine("Filmes de Eva Green");
@@ -202,9 +200,10 @@ namespace MovieConsole
             var gen = from f in db.ActorMovies
                       where f.Actors.Where(x => x.Name == "Eva Green").Count() > 0
                       select f.Movies;
+            
 
-            Console.WriteLine(gen.First().Select(x => x.Genre).Distinct());
-            Console.WriteLine(gen.First().Select(x => x.Genre).Count());
+            //Console.WriteLine(gen.First().Select(x => x.Genre).Distinct());
+            //Console.WriteLine(gen.First().Select(x => x.Genre).Count());
             #endregion
         }
 

@@ -1,4 +1,5 @@
-﻿using Entidades.Model;
+﻿using Entidades.Interface;
+using Entidades.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Win32.SafeHandles;
 
@@ -10,7 +11,8 @@ using System.Threading.Tasks;
 
 namespace Persistencia.Repositorios
 {
-    public class MoviesDAO_EF : IDisposable
+    public class MoviesDAO_EF : IMovies, IDisposable
+
 
     {
         private MovieContext _context;
@@ -38,7 +40,7 @@ namespace Persistencia.Repositorios
 
         }
 
-        public async Task<Movie> GetGenreById(int Id)
+        public async Task<Movie> GetMovieById(int Id)
         {
             return await _context.Movies.FindAsync(Id);
 

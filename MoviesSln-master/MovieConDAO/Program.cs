@@ -14,7 +14,7 @@ namespace MovieConDAO
     {
         static async Task Main(string[] args)
         {
-            FachadaMovies fachada = new FachadaMovies();
+            FachadaDominio fachada = new FachadaDominio();
 
             var relat = await fachada.getRelatorioGeneros();
 

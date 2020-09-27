@@ -10,8 +10,8 @@ using Persistencia.Repositorios;
 namespace Persistencia.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20200916083656_inicial")]
-    partial class inicial
+    [Migration("20200927040847_test")]
+    partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,51 @@ namespace Persistencia.Migrations
                 .HasAnnotation("ProductVersion", "3.1.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Entidades.Model.ActorMovies", b =>
+                {
+                    b.Property<int>("ActorMovieId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ActorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Character")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ActorMovieId");
+
+                    b.ToTable("ActorMovies");
+                });
+
+            modelBuilder.Entity("Entidades.Model.Actors", b =>
+                {
+                    b.Property<int>("ActorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ActorMoviesActorMovieId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DateOfBirth")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(40)")
+                        .HasMaxLength(40);
+
+                    b.HasKey("ActorId");
+
+                    b.HasIndex("ActorMoviesActorMovieId");
+
+                    b.ToTable("Actors");
+                });
 
             modelBuilder.Entity("Entidades.Model.Genre", b =>
                 {
@@ -47,6 +92,9 @@ namespace Persistencia.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("ActorMoviesActorMovieId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Director")
                         .HasColumnType("nvarchar(max)");
 
@@ -67,13 +115,26 @@ namespace Persistencia.Migrations
 
                     b.HasKey("MovieId");
 
+                    b.HasIndex("ActorMoviesActorMovieId");
+
                     b.HasIndex("GenreId");
 
                     b.ToTable("Movies");
                 });
 
+            modelBuilder.Entity("Entidades.Model.Actors", b =>
+                {
+                    b.HasOne("Entidades.Model.ActorMovies", null)
+                        .WithMany("Actors")
+                        .HasForeignKey("ActorMoviesActorMovieId");
+                });
+
             modelBuilder.Entity("Entidades.Model.Movie", b =>
                 {
+                    b.HasOne("Entidades.Model.ActorMovies", null)
+                        .WithMany("Movies")
+                        .HasForeignKey("ActorMoviesActorMovieId");
+
                     b.HasOne("Entidades.Model.Genre", "Genre")
                         .WithMany("Movies")
                         .HasForeignKey("GenreId")

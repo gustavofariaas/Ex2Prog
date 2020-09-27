@@ -7,6 +7,7 @@ namespace Entidades.Model
 {
     public class Actors
     {
+        [Key]
         public int ActorId { get; set; }
 
         [MaxLength(40)]
