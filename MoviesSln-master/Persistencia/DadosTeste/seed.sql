@@ -1,5 +1,5 @@
 ﻿use MoviesDB
-/***
+
 SET IDENTITY_INSERT [dbo].[Genres] ON
 INSERT INTO [dbo].[Genres] ([GenreId], [Name], [Description]) VALUES (1, N'Action', N'An action story is similar to adventure, and the protagonist usually takes a risky turn, which leads to desperate situations (including explosions, fight scenes, daring escapes, etc.).')
 INSERT INTO [dbo].[Genres] ([GenreId], [Name], [Description]) VALUES (2, N'Adventure', N'An adventure story is about a protagonist who journeys to epic or distant places to accomplish something. It can have many other genre elements included within it, because it is a very open genre.')
@@ -42,7 +42,7 @@ INSERT INTO [dbo].[Movies] ([MovieId], [Title], [Director], [ReleaseDate], [Gros
 INSERT INTO [dbo].[Movies] ([MovieId], [Title], [Director], [ReleaseDate], [Gross], [Rating], [GenreId]) VALUES (22, N'Monty Python and the Holy Grail', N' Terry Gilliam & Terry Jones', N'1975-05-23 00:00:00', CAST(1229197.00 AS Decimal(18, 2)), 8.3, 4)
 INSERT INTO [dbo].[Movies] ([MovieId], [Title], [Director], [ReleaseDate], [Gross], [Rating], [GenreId]) VALUES (23, N'Casino Royale', N'Martin Campbell', N'2006-12-15 00:00:00', CAST(167007184.00 AS Decimal(18, 2)), 8, 1)
 SET IDENTITY_INSERT [dbo].[Movies] OFF
-***/
+
 
 SET IDENTITY_INSERT [dbo].[Actors] ON
 INSERT INTO [dbo].[Actors] ([ActorId], [Name], [DateBirth]) VALUES (1, N'Jeff Goldblum', N'1952-09-22 00:00:00')
